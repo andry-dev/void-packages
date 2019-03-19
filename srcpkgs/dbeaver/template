@@ -1,15 +1,15 @@
 # Template file for 'dbeaver'
 pkgname=dbeaver
-version=5.3.3
+version=6.0.0
 revision=1
-only_for_archs="i686 x86_64"
+archs="i686 x86_64"
 hostmakedepends="apache-maven-bin"
 short_desc="Free Universal Database Tool"
 maintainer="Kyle Nusbaum <knusbaum+void@sdf.org>"
 license="Apache-2.0"
 homepage="https://dbeaver.io"
 distfiles="https://github.com/dbeaver/dbeaver/archive/${version}.tar.gz"
-checksum=9282c5de703271d888c621ba3c7b91407c730bc951e0b27409a26384359f928c
+checksum=b81206708799a26c8e461e72e188b110769ed8cb2be44fb537edb769e2680d9f
 nopie=true
 
 do_build() {

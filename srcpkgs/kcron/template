@@ -1,6 +1,6 @@
 # Template file for 'kcron'
 pkgname=kcron
-version=18.12.1
+version=18.12.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules pkg-config"
@@ -8,10 +8,10 @@ makedepends="kparts-devel qt5-devel"
 short_desc="KDE Configure and schedule tasks"
 maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later"
-homepage="https://userbase.kde.org/KCron"
+homepage="https://userbase.kde.org/System_Settings/Task_Scheduler"
 distfiles="${KDE_SITE}/applications/${version}/src/kcron-${version}.tar.xz"
-checksum=f64f00356309aa2958db34110d0544c7abf9c2b53a1f8146522546fe8fee2108
+checksum=ba1d7e3ed5453a4867b4900deb957f1020f1533bdadfc36a1c6f83921bfd6ca3
 
-if [ -n "$CROSS_BUILD" ]; then
+if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kconfig kdoctools python qt5-host-tools qt5-qmake"
 fi

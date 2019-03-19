@@ -1,6 +1,6 @@
 # Template file for 'kdeclarative'
 pkgname=kdeclarative
-version=5.54.0
+version=5.56.0
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -11,7 +11,7 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/frameworks/kdeclarative"
 distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
-checksum=40b2daa0d9843c6802ff250e7d0b9d3ffe740447b76c2b756243da4b3396d32a
+checksum=799c21af97dfbd25d844ff4839461a7ce29bd7e8ec04e00edf43c8bc3eee906a
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qt5-host-tools qt5-qmake python kconfig"

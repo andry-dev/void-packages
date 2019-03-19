@@ -1,5 +1,5 @@
 # Template file for 'google-chrome'
-_chromeVersion=71.0.3578.98
+_chromeVersion=73.0.3683.75
 _chromeRevision=1
 _channel=stable
 
@@ -9,8 +9,8 @@ revision=1
 maintainer="Michael Aldridge <maldridge@voidlinux.org>"
 homepage="https://www.google.com/chrome/"
 license="chrome"
-short_desc="An attempt at creating a safer, faster, and more stable browser"
-only_for_archs="x86_64"
+short_desc="Attempt at creating a safer, faster, and more stable browser"
+archs="x86_64"
 repository=nonfree
 restricted=yes
 nostrip=yes
@@ -20,7 +20,7 @@ _filename="google-chrome-${_channel}_${_chromeVersion}-${_chromeRevision}_amd64.
 _chromeUrl="${_baseUrl}/${_filename}"
 
 distfiles="$_chromeUrl"
-checksum=c2b2b56d854b7666ba1e7c090c0e599d695ff40a8676eb018da4ccbb4ac7711e
+checksum=f836849aa4dffce513d5e2b0baff1b632b05495f6659c3bdf5370e6750184982
 
 do_extract() {
 	mkdir -p ${DESTDIR}

@@ -1,21 +1,21 @@
 # Template file for 'plasma-desktop'
 pkgname=plasma-desktop
-version=5.14.5
-revision=2
+version=5.15.3.2
+revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
 hostmakedepends="extra-cmake-modules pkg-config kcoreaddons kdoctools
  qt5-qmake qt5-host-tools"
 makedepends="ibus-devel kactivities5-stats-devel kpeople-devel libcanberra-devel
  plasma-workspace-devel pulseaudio-devel xf86-input-evdev-devel
- xf86-input-synaptics-devel"
+ xf86-input-synaptics-devel xf86-input-libinput-devel"
 depends="kmenuedit ksysguard polkit-kde-agent powerdevil systemsettings"
 short_desc="KDE Plasma Desktop"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later, LGPL-2.1-or-later, GFDL-1.2"
 homepage="https://projects.kde.org/projects/plasma/plasma-desktop"
-distfiles="${KDE_SITE}/plasma/${version%.1}/${pkgname}-${version}.tar.xz"
-checksum=d4da2bcd9752a3b88e93e9b55ded2b925b1b2b598e84ebc89cfb6669c63d205f
+distfiles="${KDE_SITE}/plasma/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=21e54d489817751173049122410737db641a8e58955b84264a4ec861e302ff8a
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kconfig-devel kcoreaddons-devel kded

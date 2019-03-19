@@ -1,8 +1,8 @@
 # Template file for 'python-hypothesis'
 pkgname=python-hypothesis
-version=4.4.1
+version=4.13.0
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="hypothesis-hypothesis-python-${version}"
 build_wrksrc=hypothesis-python
 build_style=python-module
@@ -17,7 +17,7 @@ license="MPL-2.0"
 homepage="https://hypothesis.works/"
 changelog="https://github.com/HypothesisWorks/hypothesis/raw/master/hypothesis-python/docs/changes.rst"
 distfiles="https://github.com/HypothesisWorks/hypothesis/archive/hypothesis-python-${version}.tar.gz"
-checksum=da22520fffcc3d7244379830bd3406616bede295f45e1a2975e82523aa541138
+checksum=77c7d44dd73da19dadf3715bb62f91f2ee30d54a413d6ea43a48f24c137e934a
 
 do_check() {
 	# In python3 mock is actually unittest.mock
@@ -35,7 +35,7 @@ do_check() {
 }
 
 python3-hypothesis_package() {
-	noarch=yes
+	archs=noarch
 	pycompile_module="hypothesis"
 	depends="python3-attrs python3-coverage"
 	short_desc="${short_desc/Python2/Python3}"

@@ -1,7 +1,7 @@
 # Template file for 'consul'
 pkgname=consul
-version=1.4.0
-revision=2
+version=1.4.3
+revision=1
 build_style=go
 go_import_path="github.com/hashicorp/${pkgname}"
 short_desc="Distributed solution to connect and configure applications"
@@ -9,4 +9,4 @@ maintainer="iaroki <iaroki@protonmail.com>"
 license="MPL-2.0"
 homepage="https://www.consul.io/"
 distfiles="https://github.com/hashicorp/consul/archive/v${version}.tar.gz"
-checksum=de7e742d483589c933e265160f0212c209cc2b7200c5b582cdf90227a800539f
+checksum=b00c021ef8781c239b5864173b9f7fb8a140cdd890628a5bc4ad8f16eb8cfedf

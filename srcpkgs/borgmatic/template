@@ -1,8 +1,8 @@
 # Template file for 'borgmatic'
 pkgname=borgmatic
-version=1.2.14
+version=1.3.0
 revision=1
-noarch=yes
+archs=noarch
 build_style=python3-module
 pycompile_module="borgmatic"
 hostmakedepends="python3-setuptools"
@@ -14,7 +14,7 @@ maintainer="Renato Aguiar <renato@renag.me>"
 license="GPL-3.0-only"
 homepage="https://torsion.org/borgmatic/"
 distfiles="${PYPI_SITE}/b/borgmatic/borgmatic-${version}.tar.gz"
-checksum=1a6ad21e2db8cce7a1191e6a911120c516eba4721e584389df751583974c1e65
+checksum=40f2fffa47d56e670ea31ee90de91b60eb063a99931def05c16e6bac7fc3d53a
 
 do_check() {
 	# The tests use the NEWS file to get version and checks against

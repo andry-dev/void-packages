@@ -1,17 +1,18 @@
 # Template file for 'gxi'
 pkgname=gxi
-version=0.4.1
+version=0.5.4
 revision=1
 build_style=meson
-hostmakedepends="cmake cargo pkg-config rust"
-makedepends="gtk+3-devel rust-std"
+build_helper=rust
+hostmakedepends="cargo pkg-config rust gettext"
+makedepends="gtk+3-devel rust-std gettext-devel"
+checkdepends="appstream-glib desktop-file-utils"
 short_desc="GTK frontend for the xi text editor, written in Rust"
-maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+maintainer="Rasmus Thomsen <oss@cogitri.dev>"
 license="MIT"
 homepage="https://github.com/Cogitri/gxi"
 distfiles="https://github.com/Cogitri/gxi/releases/download/v${version}/gxi-${version}.tar.xz"
-checksum=3dfd498d93255d560b4181023117dcec67397cbcfca884dec68b9afa5ab90b7e
-nocross="Meson x Cargo"
+checksum=aff6a4e70d2ceacbbdbda2650f170e697baa2d07e379e3ee3ac246e3fe8a5af1
 
 post_install() {
 	vlicense LICENSE

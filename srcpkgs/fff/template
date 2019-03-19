@@ -1,15 +1,15 @@
 # Template file for 'fff'
 pkgname=fff
-version=1.5
+version=2.1
 revision=1
-noarch=yes
+archs=noarch
 depends="bash coreutils xdg-utils"
 short_desc="Simple file manager written in bash"
 maintainer="shizonic <realtiaz@gmail.com>"
 license="MIT"
 homepage="https://github.com/dylanaraps/fff"
 distfiles="https://github.com/dylanaraps/fff/archive/${version}.tar.gz"
-checksum=83c149230b18c0ac0b4ec07824312c3df6c51f23eba8f1e22241c5ea96f4b078
+checksum=776870d11c022fa40468d5d582831c0ab5beced573489097deaaf5dd690e7eab
 
 do_install() {
 	vbin fff

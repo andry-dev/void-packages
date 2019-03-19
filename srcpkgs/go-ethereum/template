@@ -1,6 +1,6 @@
 # Template file for 'go-ethereum'
 pkgname=go-ethereum
-version=1.8.21
+version=1.8.23
 revision=1
 build_style=go
 go_import_path=github.com/ethereum/go-ethereum
@@ -18,7 +18,7 @@ maintainer="Hoang Nguyen <hoang@wetrust.io>"
 license="GPL-3.0-only"
 homepage="https://github.com/ethereum/go-ethereum"
 distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
-checksum=736028b4babd44d67a70a4a7883a06e97263449805c8c067b7dfd77e9fa94299
+checksum=52161e811dcdabc5506f0dc936e7010c77116cba5f1d02a33fb81fed5bb1bf95
 
 geth_package() {
 	short_desc="Official Go implementation of the Ethereum protocol"

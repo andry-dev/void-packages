@@ -1,6 +1,6 @@
 # Template file for 'ktuberling'
 pkgname=ktuberling
-version=18.12.1
+version=18.12.3
 revision=1
 build_style=cmake
 hostmakedepends="extra-cmake-modules qt5-host-tools qt5-qmake kdoctools
@@ -11,4 +11,4 @@ maintainer="Helmut Pozimski <helmut@pozimski.eu>"
 license="GPL-3.0-or-later"
 homepage="https://www.kde.org/applications/games/ktuberling"
 distfiles="${KDE_SITE}/applications/${version}/src/ktuberling-${version}.tar.xz"
-checksum=733e4b038995b43e0369f19b95008bd53be9d061b30d2555ffeb24edec141c40
+checksum=b69815f3553f843c30ab9d026ca7da97e62e66b58851111d1e4d29e57d67bd04

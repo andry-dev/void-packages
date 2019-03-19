@@ -1,8 +1,8 @@
 # Template file for 'python-libtmux'
 pkgname=python-libtmux
-version=0.8.0
+version=0.8.1
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="libtmux-${version}"
 build_style=python-module
 pycompile_module="libtmux"
@@ -13,14 +13,14 @@ maintainer="Alexander Egorenkov <egorenar-dev@posteo.net>"
 license="MIT"
 homepage="https://github.com/tmux-python/libtmux"
 distfiles="${PYPI_SITE}/l/libtmux/libtmux-${version}.tar.gz"
-checksum=2b969b507c26d9db08b85be4808d75774b6418ecf5a0f61956f7a1da44519585
+checksum=5d4963cc4af53046cabd0997152af05a0a419e4c63af6737389b50f637c3852a
 
 post_install() {
 	vlicense LICENSE
 }
 
 python3-libtmux_package() {
-	noarch=yes
+	archs=noarch
 	pycompile_module="libtmux"
 	depends="python3"
 	short_desc="${short_desc/Python2/Python3}"

@@ -1,15 +1,15 @@
 # Template file for 'notmuch'
 pkgname=notmuch
-version=0.28
-revision=3
-hostmakedepends="perl pkg-config python-Sphinx python-devel python3-Sphinx python3-devel"
+version=0.28.3
+revision=1
+hostmakedepends="perl pkg-config python-devel python3-Sphinx python3-devel"
 makedepends="bash-completion gmime3-devel talloc-devel xapian-core-devel"
 short_desc="Thread-based email index, search, and tagging"
 maintainer="Jan S. <jan.schreib@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://notmuchmail.org"
-distfiles="${DEBIAN_SITE}/main/n/notmuch/notmuch_${version}.orig.tar.xz"
-checksum=3b08a925f9fac87120a3aae9a0efbbc581894cd021cd8d6201056a74b59f7e11
+distfiles="https://notmuchmail.org/releases/notmuch-${version}.tar.gz"
+checksum=4e212d8b4ae30da04edb05d836dcdb569488ff6760706cecb882488eb1710eec
 
 subpackages="libnotmuch libnotmuch-devel notmuch-mutt notmuch-python notmuch-python3"
 
@@ -67,7 +67,7 @@ libnotmuch-devel_package() {
 }
 
 notmuch-emacs_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - Emacs interface"
 	depends="${sourcepkg}-${version}_${revision} virtual?emacs"
 	pkg_install() {
@@ -76,7 +76,7 @@ notmuch-emacs_package() {
 }
 
 notmuch-mutt_package() {
-	noarch=yes
+	archs=noarch
 	short_desc+=" - Mutt interface"
 	depends="${sourcepkg}-${version}_${revision} perl-Mail-Box perl-MailTools
 	 perl-String-ShellQuote perl-Term-ReadLine-Gnu perl-File-Which"

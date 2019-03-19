@@ -1,8 +1,8 @@
 # Template file for 'meson-cmake-wrapper'
 pkgname=meson-cmake-wrapper
-version=0.3.1
+version=0.3.3
 revision=1
-noarch=yes
+archs=noarch
 build_style=python3-module
 pycompile_module="mcw"
 hostmakedepends="python3-setuptools"
@@ -12,4 +12,4 @@ maintainer="John Zimmermann <johnz@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/prozum/meson-cmake-wrapper"
 distfiles="${PYPI_SITE}/m/meson-cmake-wrapper/meson-cmake-wrapper-${version}.tar.gz"
-checksum=0bb8b94e835445a9426e3cd51e0be4d84491f6bcc09c14109da212a700779e51
+checksum=9fe1c2e42dd473e419397f609adb22c91898b874334edea6826f5673bfac7396

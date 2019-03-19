@@ -1,6 +1,6 @@
 # Template file for 'kdeplasma-addons5'
 pkgname=kdeplasma-addons5
-version=5.14.5
+version=5.15.3
 revision=1
 wrksrc="${pkgname%5}-${version}"
 build_style=cmake
@@ -11,9 +11,9 @@ makedepends="kross-devel kdesignerplugin-devel kdoctools-devel kholidays-devel
 short_desc="Various Plasma addons"
 maintainer="John <johnz@posteo.net>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
-homepage="https://projects.kde.org/projects/plasma/kdeplasma-addons5"
+homepage="https://projects.kde.org/projects/plasma/kdeplasma-addons"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname%5}-${version}.tar.xz"
-checksum=15b8717c08b0b6f1e1fec6e0a15231f2e6d5d38e5c9f59a4c037b514ce8057a3
+checksum=364faceba87e8ae4d9d515615a022316cc1115d75e56fe305ee671ff3ab73c1c
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kconfig-devel kcoreaddons-devel plasma-framework"

@@ -1,7 +1,7 @@
 # Template file for 'pantheon-screenshot'
 pkgname=pantheon-screenshot
-version=1.6.0
-revision=1
+version=1.6.2
+revision=2
 wrksrc="screenshot-${version}"
 build_style=meson
 hostmakedepends="desktop-file-utils glib-devel intltool pkg-config vala"
@@ -12,4 +12,4 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="LGPL-3.0-only"
 homepage="https://github.com/elementary/screenshot-tool"
 distfiles="https://github.com/elementary/screenshot-tool/archive/${version}.tar.gz"
-checksum=286c309233f4b09fad48049fd4fa1c869311fef47ffedb474804fb9145a6a882
+checksum=c276f2ffff900a6b8f413a136edab81856b0851b0ddddbda043d89a549347d0a

@@ -1,15 +1,17 @@
 # Template file for 'giflib'
 pkgname=giflib
-version=5.1.4
+version=5.1.8
 revision=1
-build_style=gnu-configure
+build_style=gnu-makefile
 hostmakedepends="xmlto"
 short_desc="Library to handle, display and manipulate GIF images"
-maintainer="Juan RP <xtraeme@voidlinux.org>"
-homepage="http://sourceforge.net/projects/giflib/"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="MIT"
+homepage="https://sourceforge.net/projects/giflib/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
-checksum=34a7377ba834397db019e8eb122e551a49c98f49df75ec3fcc92b9a794a4f6d1
+checksum=d105a905df34a7822172d13657cdae3d4b0c8e8c7067ccf05e39a40044f8ca53
+
+CFLAGS="-fPIC"
 
 post_install() {
 	vlicense COPYING LICENSE
@@ -20,10 +22,11 @@ giflib-devel_package() {
 	short_desc+=" - development files"
 	pkg_install() {
 		vmove usr/include
-		vmove usr/lib/*.a
-		vmove usr/lib/*.so
+		vmove "usr/lib/*.so"
+		vmove "usr/lib/*.a"
 	}
 }
+
 giflib-tools_package() {
 	short_desc+=" - utilities"
 	pkg_install() {

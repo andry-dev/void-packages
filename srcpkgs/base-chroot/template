@@ -1,8 +1,8 @@
 # Template file for 'base-chroot'
 pkgname=base-chroot
 version=0.65
-revision=4
-noarch=yes
+revision=5
+archs=noarch
 bootstrap=yes
 build_style=meta
 homepage="http://www.voidlinux.eu"
@@ -14,4 +14,4 @@ depends="
  base-files>=0.127 kernel-libc-headers glibc-devel glibc-locales binutils gcc
  mpfr patch chroot-bash chroot-grep coreutils gettext libada-devel gcc-ada
  chroot-texinfo sed chroot-gawk findutils diffutils make gzip file tar
- chroot-util-linux chroot-git ccache xbps readline xz which"
+ chroot-distcc chroot-util-linux chroot-git ccache xbps readline xz which"

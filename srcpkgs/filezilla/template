@@ -1,7 +1,7 @@
 # Template file for 'filezilla'
 pkgname=filezilla
-version=3.39.0
-revision=2
+version=3.41.2
+revision=1
 build_style=gnu-configure
 configure_args="--disable-static --disable-manualupdatecheck --disable-autoupdatecheck
  --with-wx-config=wx-config-gtk3"
@@ -15,7 +15,7 @@ license="GPL-2.0-or-later"
 homepage="https://filezilla-project.org"
 changelog="https://svn.filezilla-project.org/filezilla/FileZilla3/trunk/NEWS?view=co"
 distfiles="https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2"
-checksum=fb515e93775e5ad94ff2755b39605b62b3e8fcfc1125757f411d8f580d16444f
+checksum=c23be24831f115748b4fd2c126840f0318e5b4da5cd3da1b03daaef9f7dff017
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" wxWidgets-gtk3-devel xdg-utils"

@@ -1,14 +1,14 @@
 # Template file for 'bspwm'
 pkgname=bspwm
-version=0.9.5
-revision=3
+version=0.9.7
+revision=1
 makedepends="xcb-util-wm-devel xcb-util-keysyms-devel"
 short_desc="Tiling window manager based on binary space partitioning"
 maintainer="Nathan Owens <ndowens04@gmail.com>"
 license="BSD-2-Clause"
 homepage="https://github.com/baskerville/bspwm"
 distfiles="https://github.com/baskerville/bspwm/archive/${version}.tar.gz"
-checksum=273591baf6a15d317cfedf4a423c51c132c52dd05b0328d6994f7bdc3982f782
+checksum=336c28a272b2a3d5f5324a4634143ff8fdb07648c110ac48b1a480a50e583a5d
 
 do_build() {
 	make CC=$CC

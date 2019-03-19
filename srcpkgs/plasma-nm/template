@@ -1,6 +1,6 @@
 # Template file for 'plasma-nm'
 pkgname=plasma-nm
-version=5.14.5
+version=5.15.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -14,7 +14,7 @@ maintainer="John <johnz@posteo.net>"
 license="LGPL-2.1-or-later"
 homepage="https://projects.kde.org/projects/plasma/plasma-nm"
 distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
-checksum=a276a73216a6903f92849fc1e3acb2bb6bbf01b78550c20504ce314a1343c9c1
+checksum=7fe3d72bd81f57cf2df0fcb33e957355110efe31f4b1a71a4c0b6ca121813cd1
 
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" kconfig-devel kcoreaddons-devel plasma-framework"

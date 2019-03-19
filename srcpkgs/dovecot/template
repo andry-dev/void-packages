@@ -1,7 +1,7 @@
 # Template file for 'dovecot'
 # revbump dovecot-plugin-pigeonhole when updating dovecot!
 pkgname=dovecot
-version=2.3.4
+version=2.3.5
 revision=1
 build_style=gnu-configure
 configure_args="--with-moduledir=/usr/lib/dovecot/modules --with-sql=plugin
@@ -19,7 +19,7 @@ maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="LGPL-2.1-or-later"
 homepage="https://dovecot.org"
 distfiles="${homepage}/releases/2.3/${pkgname}-${version}.tar.gz"
-checksum=d91b76eff8df6185c1799f1b279f780105bdeeea27e3286b42f4cab18efbef05
+checksum=bfe112ec6d11f7d6c6f7f0440e3b6e2c840c15cec1e99466b5495765d54aaaff
 keep_libtool_archives=yes
 
 

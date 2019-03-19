@@ -1,8 +1,8 @@
 # Template file for 'python-yamllint'
 pkgname=python-yamllint
-version=1.14.0
+version=1.15.0
 revision=1
-noarch=yes
+archs=noarch
 wrksrc="yamllint-${version}"
 build_style=python-module
 pycompile_module="yamllint"
@@ -14,7 +14,7 @@ maintainer="Joseph LaFreniere <joseph@lafreniere.xyz>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/adrienverge/yamllint"
 distfiles="${homepage}/archive/v${version}.tar.gz"
-checksum=17fff12fe15d1df799d8c8766fad76d3b7501d6a7f496190bd654340db5254e2
+checksum=9c27608ec61777f83c2cb29158b247a02079ad2aebb86522dd941397e3e78f6a
 alternatives="yamllint:yamllint:/usr/bin/yamllint2"
 
 do_check() {
@@ -22,7 +22,7 @@ do_check() {
 }
 
 python3-yamllint_package() {
-	noarch=yes
+	archs=noarch
 	depends="python3-pathspec python3-setuptools python3-yaml"
 	pycompile_module="yamllint"
 	short_desc="${short_desc/Python2/Python3}"

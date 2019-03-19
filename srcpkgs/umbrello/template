@@ -1,6 +1,6 @@
 # Template file for 'umbrello'
 pkgname=umbrello
-version=18.12.1
+version=18.12.3
 revision=1
 build_style=cmake
 configure_args="-DBUILD_TESTING=OFF"
@@ -11,5 +11,5 @@ maintainer="Piotr Wójcik <chocimier@tlen.pl>"
 license="GPL-2.0-or-later, LGPL-2.0-or-later, GFDL-1.2-or-later"
 homepage="https://umbrello.kde.org/"
 distfiles="${KDE_SITE}/applications/${version}/src/umbrello-${version}.tar.xz"
-checksum=b9981e82513757fa2b564cc7cb8fa35cf1624e60655b216064dda19e1d01738a
+checksum=2ab53b33cf1fcaea470c01b2421e911d4287b1d0421fa33e0b60043fe6943cc7
 

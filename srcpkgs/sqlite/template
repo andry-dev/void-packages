@@ -1,6 +1,6 @@
 # Template file for 'sqlite'
 pkgname=sqlite
-version=3.26.0
+version=3.27.2
 revision=1
 _amalgamationver=$(printf "%d%02d%02d00\n" ${version//./ })
 wrksrc="sqlite-autoconf-${_amalgamationver}"
@@ -12,8 +12,8 @@ maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="Public Domain"
 homepage="https://sqlite.org/"
 changelog="https://www.sqlite.org/releaselog/${version//./_}.html"
-distfiles="${homepage}/2018/sqlite-autoconf-${_amalgamationver}.tar.gz"
-checksum=5daa6a3fb7d1e8c767cd59c4ded8da6e4b00c61d3b466d0685e35c4dd6d7bf5d
+distfiles="${homepage}/2019/sqlite-autoconf-${_amalgamationver}.tar.gz"
+checksum=50c39e85ea28b5ecfdb3f9e860afe9ba606381e21836b2849efca6a0bfe6ef6e
 
 CFLAGS="-DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_ENABLE_COLUMN_METADATA \
  -DSQLITE_ENABLE_UNLOCK_NOTIFY -DSQLITE_SECURE_DELETE -DSQLITE_ENABLE_JSON1 \
@@ -24,7 +24,7 @@ CFLAGS+=" -DHAVE_FDATASYNC"
 disable_parallel_build=yes
 
 pre_configure() {
-	sed -i -e 's/ -ltinfo//g' configure
+	vsed -i -e 's/ -ltinfo//g' configure
 }
 
 sqlite-devel_package() {

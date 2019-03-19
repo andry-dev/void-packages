@@ -1,6 +1,6 @@
 # Template file for 'libpqxx'
 pkgname=libpqxx
-version=6.2.5
+version=6.3.3
 revision=1
 build_style=gnu-configure
 configure_args="--enable-shared --disable-documentation"
@@ -12,7 +12,7 @@ license="BSD-3-Clause"
 homepage="http://pqxx.org/development/libpqxx"
 changelog="https://raw.githubusercontent.com/jtv/libpqxx/master/NEWS"
 distfiles="https://github.com/jtv/${pkgname}/archive/${version}.tar.gz"
-checksum=36fcf8439ac7f7cc68b21e95b20e921ece4487cda1cc1d09b798a84e7cb3a4b7
+checksum=73ff3308987f12111efb554acb599b2233ab3d52a69d3674b39acd10830758a4
 
 post_install() {
 	vlicense COPYING

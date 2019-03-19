@@ -1,6 +1,6 @@
 # Template file for 'cups-filters'
 pkgname=cups-filters
-version=1.22.0
+version=1.22.2
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --with-rcdir=no --enable-avahi
@@ -9,16 +9,16 @@ configure_args="--disable-static --with-rcdir=no --enable-avahi
 hostmakedepends="ghostscript glib-devel mupdf-tools pkg-config poppler-utils
  liblouis"
 makedepends="avahi-glib-libs-devel cups-devel fontconfig-devel
- ghostscript-devel lcms2-devel libqpdf-devel libqpdf-devel poppler-cpp-devel"
+ ghostscript-devel lcms2-devel libqpdf-devel poppler-cpp-devel"
 depends="bc ghostscript libcups-filters-${version}_${revision} poppler-utils"
 checkdepends="dejavu-fonts-ttf"
 conf_files="/etc/cups/cups-browsed.conf"
-short_desc="The OpenPrinting CUPS Filters"
+short_desc="OpenPrinting CUPS Filters"
 maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later, MIT"
 homepage="https://wiki.linuxfoundation.org/openprinting/cups-filters"
 distfiles="http://openprinting.org/download/cups-filters/${pkgname}-${version}.tar.xz"
-checksum=443747f24ac5213b720f3fd873730931acb4f5e3ff006bca3931e476de18bb3d
+checksum=9c21004147775b3da7208cc72c24de4d5d5c4f70275859c7e77a9e6b361ffe19
 
 lib32disabled=yes
 

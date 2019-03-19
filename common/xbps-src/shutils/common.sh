@@ -67,6 +67,9 @@ run_step() {
     msg_error "$pkgver: cannot find do_$step_name()!\n"
   fi
 
+  # Run do_ phase hooks
+  run_pkg_hooks "do-$step_name"
+
   # Run post_* Phase
   if declare -f "post_$step_name" >/dev/null; then
     ch_wrksrc
@@ -313,6 +316,7 @@ setup_pkg() {
         export XBPS_TARGET_MACHINE=${XBPS_ARCH:-$XBPS_MACHINE}
         unset XBPS_CROSS_BASE XBPS_CROSS_LDFLAGS XBPS_CROSS_FFLAGS
         unset XBPS_CROSS_CFLAGS XBPS_CROSS_CXXFLAGS XBPS_CROSS_CPPFLAGS
+        unset XBPS_CROSS_RUSTFLAGS XBPS_CROSS_RUST_TARGET
 
         XBPS_INSTALL_XCMD="$XBPS_INSTALL_CMD"
         XBPS_QUERY_XCMD="$XBPS_QUERY_CMD"
@@ -345,6 +349,7 @@ setup_pkg() {
         unset CROSS_BUILD
         source_file ${XBPS_SRCPKGDIR}/${basepkg}/template
     fi
+
 
     # Check if required vars weren't set.
     _vars="pkgname version short_desc revision homepage license"
@@ -410,7 +415,8 @@ setup_pkg() {
     fi
     makejobs="-j$XBPS_MAKEJOBS"
 
-    if [ -n "$noarch" ]; then
+    # strip whitespaces to make "  noarch  " valid too.
+    if [ "${archs// /}" = "noarch" ]; then
         arch="noarch"
     else
         arch="$XBPS_TARGET_MACHINE"
@@ -462,11 +468,6 @@ setup_pkg() {
     export CPPFLAGS_FOR_BUILD="$XBPS_CPPFLAGS"
     export LDFLAGS_FOR_BUILD="$XBPS_LDFLAGS"
     export FFLAGS_FOR_BUILD="$XBPS_FFLAGS"
-
-    # Define equivalent of TOML config in environment
-    # [build]
-    # jobs = $XBPS_MAKEJOBS
-    export CARGO_BUILD_JOBS="$XBPS_MAKEJOBS"
 
     if [ -n "$cross" ]; then
         # Regular tools names
@@ -528,19 +529,6 @@ setup_pkg() {
         export RUSTFLAGS="$XBPS_CROSS_RUSTFLAGS"
         # Rust target, which differs from our triplets
         export RUST_TARGET="$XBPS_CROSS_RUST_TARGET"
-
-        # Define equivalent of TOML config in environment
-        # [target.${RUST_TARGET}]
-        # linker = ${CC}
-        _XBPS_CROSS_RUST_TARGET_ENV="${XBPS_CROSS_RUST_TARGET^^}"
-        _XBPS_CROSS_RUST_TARGET_ENV="${_XBPS_CROSS_RUST_TARGET_ENV//-/_}"
-        export CARGO_TARGET_${_XBPS_CROSS_RUST_TARGET_ENV}_LINKER="$CC"
-        unset _XBPS_CROSS_RUST_TARGET_ENV
-
-        # Define equivalent of TOML config in environment
-        # [build]
-        # target = ${RUST_TARGET}
-        export CARGO_BUILD_TARGET="$RUST_TARGET"
     else
         export CC="cc"
         export CXX="g++"
@@ -564,6 +552,7 @@ setup_pkg() {
         unset CC_host CXX_host CPP_host GCC_host FC_host LD_host AR_host AS_host
         unset RANLIB_host STRIP_host OBJDUMP_host OBJCOPY_host NM_host READELF_host
         unset CFLAGS_host CXXFLAGS_host CPPFLAGS_host LDFLAGS_host
+        unset RUSTFLAGS
     fi
 
     # Setup some specific package vars.
@@ -597,4 +586,12 @@ setup_pkg() {
     fi
 
     source_file $XBPS_COMMONDIR/environment/build-style/${build_style}.sh
+
+    # Source all build-helper files that are defined
+    for f in $build_helper; do
+        if [ ! -r $XBPS_BUILDHELPERDIR/${f}.sh ];  then
+            msg_error "$pkgver: cannot find build helper $XBPS_BUILDHELPERDIR/${f}.sh!\n"
+        fi
+        . $XBPS_BUILDHELPERDIR/${f}.sh
+    done
 }

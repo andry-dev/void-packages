@@ -1,6 +1,6 @@
 # Template file for 'mosquitto'
 pkgname=mosquitto
-version=1.5.5
+version=1.5.8
 revision=1
 build_style=gnu-makefile
 make_build_args="WITH_TLS_PSK=no WITH_WEBSOCKETS=yes" # PSK not supported by libressl
@@ -14,14 +14,16 @@ maintainer="Lukas Braun <koomi@hackerspace-bamberg.de>"
 license="EPL-1.0, BSD-3-Clause-Attribution"
 homepage="http://mosquitto.org"
 distfiles="${homepage}/files/source/${pkgname}-${version}.tar.gz"
-checksum=fcdb47e340864c545146681af7253399cc292e41775afd76400fda5b0d23d668
+checksum=78d7e70c3794dc3a1d484b4f2f8d3addebe9c2da3f5a1cebe557f7d13beb0da4
 
-case "$XBPS_TARGET_MACHINE" in
-	*-musl)
-		post_extract() {
-			sed -i 's/-lanl//' config.mk
-		}
-esac
+post_extract() {
+	case "$XBPS_TARGET_MACHINE" in
+		*-musl)
+			post_extract() {
+				vsed -e 's/-lanl//' -i config.mk
+			}
+	esac
+}
 
 pre_install() {
 	sed -i 's,sbin,bin,g' */Makefile
