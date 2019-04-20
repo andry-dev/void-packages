@@ -1,6 +1,6 @@
 # Template file for 'fwupd'
 pkgname=fwupd
-version=1.2.5
+version=1.2.7
 revision=1
 build_style=meson
 build_helper="gir"
@@ -10,19 +10,19 @@ configure_args="-Dconsolekit=false -Dgtkdoc=false -Dintrospection=true
  -Dsystemd=false -Dplugin_altos=false -Dtests=false -Dman=false
  -Dpkcs7=false -Db_lto=false -Defi-includedir=${XBPS_CROSS_BASE}/usr/include/efi
  -Defi-ldsdir=${XBPS_CROSS_BASE}/usr/lib -Defi-ld=${XBPS_CROSS_BASE}/usr/bin/ld
- -Defi-libdir=${XBPS_CROSS_BASE}/usr/lib"
+ -Defi-libdir=${XBPS_CROSS_BASE}/usr/lib -Delogind=true"
 hostmakedepends="dejavu-fonts-ttf gnutls-tools help2man pkg-config gcab
  vala glib-devel polkit"
 makedepends="libxmlb-devel cairo-devel colord-devel libarchive-devel
  gnutls-devel gpgme-devel json-glib-devel libgusb-devel polkit-devel
  sqlite-devel libsoup-devel gcab-devel pango-devel python3-gobject
- python3-Pillow"
+ python3-Pillow elogind-devel"
 short_desc="Daemon to allow session software to update firmware"
 maintainer="maxice8 <thinkabit.ukim@gmail.com>"
 license="LGPL-2.1-or-later"
 homepage="https://github.com/hughsie/fwupd"
 distfiles="https://github.com/hughsie/fwupd/archive/${version}.tar.gz"
-checksum=d65ea134f1b60ce5b11bf0224e3ec477be3eb01c3435d1364a40ea5403400e8c
+checksum=25d9749cfc0ac704271a504063f74b2427eaa4aadc3f85a9ed3dbe0f0581c9f2
 
 conf_files="
  /etc/dbus-1/system.d/org.freedesktop.fwupd.conf

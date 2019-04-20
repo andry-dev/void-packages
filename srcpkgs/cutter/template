@@ -1,6 +1,6 @@
 # Template file for 'cutter'
 pkgname=cutter
-version=1.7.4
+version=1.8.1
 revision=1
 build_wrksrc=src
 build_style=qmake
@@ -13,4 +13,4 @@ maintainer="johannes <johannes.brechtmann@gmail.com>"
 license="GPL-3.0-only"
 homepage="https://github.com/radareorg/cutter"
 distfiles="https://github.com/radareorg/${pkgname}/archive/v${version}.tar.gz"
-checksum=8634c3647b193b5e4fbf240aa107e26bfe3ebeff688f8edd535be4ea66177e2a
+checksum=0394ce56c3c0f419da8278bc679c8229b505ce9ea6480dcbbc6621caf2c45713

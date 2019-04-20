@@ -1,6 +1,6 @@
 # Template file for 'brillo'
 pkgname=brillo
-version=1.4.3
+version=1.4.6
 revision=1
 wrksrc="${pkgname}-v${version}"
 build_style=gnu-makefile
@@ -13,4 +13,4 @@ maintainer="Cameron Nemo <camerontnorman@gmail.com>"
 license="GPL-3.0-or-later"
 homepage="https://gitlab.com/cameronnemo/brillo"
 distfiles="${homepage}/-/archive/v${version}/${wrksrc}.tar.gz"
-checksum=367ece2beb5d7980e139512f24c6134e8a5f4f86dcf8a0d9a494fa0a18dc6c8c
+checksum=2cb23143de1f9f15d469e6399e819981db00c0dae46ecb339bb95284eb8e805b

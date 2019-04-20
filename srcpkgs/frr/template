@@ -1,7 +1,7 @@
 # Template file for 'frr'
 pkgname=frr
-version=6.0.2
-revision=1
+version=7.0
+revision=2
 wrksrc="${pkgname}-${pkgname}-${version}"
 build_style=gnu-configure
 # chroot-texinfo is not able to build frr's docs
@@ -13,19 +13,21 @@ make_build_args="SPHINXBUILD=sphinx-build3"
 conf_files="/etc/frr/*.conf"
 make_dirs="/var/log/frr 0700 _frr _frr"
 hostmakedepends="pkg-config flex bison autoconf automake libtool
- python python3 python3-Sphinx python-devel python3-devel"
+ python python3 python3-Sphinx python-devel python3-devel libyang-tools"
 makedepends="pcre-devel libcap-devel json-c-devel pam-devel c-ares-devel
- readline-devel python-devel python3-devel"
+ readline-devel python-devel python3-devel libyang-devel"
 short_desc="IP routing protocol suite"
 maintainer="Cameron Nemo <camerontnorman@gmail.com>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://frrouting.org"
 distfiles="https://github.com/FRRouting/frr/archive/${pkgname}-${version}.tar.gz"
-checksum=dde97d012b6068a1230c0c6a03b38015befae37f617b9ffbd17024c71a170d94
+checksum=15b62dc0c52531e4bcefa6b830e9b9b07d1d0f189c2110307dbc19d80b719354
 nocross="http://ix.io/1rQ6"
 system_groups="_frrvty"
 system_accounts="_frr"
 _frr_groups="_frrvty"
+_daemons="zebra staticd bgpd ospfd ospf6d ripd ripngd isisd pimd ldpd nhrpd
+ eigrpd babeld sharpd pbrd bfdd fabricd"
 
 pre_configure() {
 	autoreconf -fi
@@ -35,7 +37,7 @@ post_install() {
 	# LSB init script is not needed
 	rm -f -- "${DESTDIR}/usr/bin/frr"
 
-	# frr-reload wrapper script hardcodes sbindir as usr/lib/frr, so avoid it
+	# frr-reload wrapper script hardcodes sbindir as usr/lib/frr, avoid it
 	rm -f -- "${DESTDIR}/usr/bin/frr-reload"
 	mv "${DESTDIR}/usr/bin/frr-reload.py" "${DESTDIR}/usr/bin/frr-reload"
 
@@ -43,7 +45,7 @@ post_install() {
 	vsv frr-generic
 	vmkdir etc/frr 0755
 	vinstall /dev/null 0640 etc/frr vtysh.conf
-	for daemon in zebra staticd bgpd ospfd ospf6d ripd ripngd isisd pimd ldpd nhrpd eigrpd babeld sharpd pbrd bfdd fabricd; do
+	for daemon in ${_daemons}; do
 		vinstall /dev/null 0640 etc/frr "${daemon}.conf"
 		vsv "${daemon}"
 	done
@@ -51,7 +53,7 @@ post_install() {
 
 frr-flush_package() {
 	short_desc+=" - route flushing tool"
-	depends="iproute2 ${srcpkgname}-${version}_${revision}"
+	depends="iproute2 ${sourcepkg}-${version}_${revision}"
 	pkg_install() {
 		vmove usr/bin/frr-flush
 	}
@@ -59,7 +61,7 @@ frr-flush_package() {
 
 frr-reload_package() {
 	short_desc+=" - reload tool"
-	depends="python-ipaddr python ${srcpkgname}-${version}_${revision}"
+	depends="python-ipaddr python ${sourcepkg}-${version}_${revision}"
 	pkg_install() {
 		vmove usr/bin/frr-reload
 	}

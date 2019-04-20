@@ -1,6 +1,6 @@
 # Template file for 'cups-filters'
 pkgname=cups-filters
-version=1.22.2
+version=1.22.5
 revision=1
 build_style=gnu-configure
 configure_args="--disable-static --with-rcdir=no --enable-avahi
@@ -18,7 +18,7 @@ maintainer="Juan RP <xtraeme@voidlinux.org>"
 license="GPL-2.0-or-later, LGPL-2.1-or-later, MIT"
 homepage="https://wiki.linuxfoundation.org/openprinting/cups-filters"
 distfiles="http://openprinting.org/download/cups-filters/${pkgname}-${version}.tar.xz"
-checksum=9c21004147775b3da7208cc72c24de4d5d5c4f70275859c7e77a9e6b361ffe19
+checksum=30d453a2152f0b3032126720aecfe35d5c3adc00d9f32f0320da492e92f707a6
 
 lib32disabled=yes
 
