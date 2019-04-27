@@ -1,0 +1,34 @@
+# Template file for 'standardese-git'
+pkgname=standardese-git
+version=0.3.4
+revision=1
+build_style=fetch
+hostmakedepends="git cmake"
+makedepends="boost-devel clang llvm cmark-devel"
+depends="boost"
+short_desc="standardese tool"
+maintainer="andry-dev <andry@suzunaan.me>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/foonathan/standardese"
+
+do_fetch() {
+    git clone https://github.com/foonathan/standardese ${wrksrc} --recursive
+    cd ${wrksrc}
+}
+
+do_configure() {
+    cd ${wrksrc}
+    mkdir -p build
+    cd build
+    cmake ..
+}
+
+do_build() {
+    cd ${wrksrc}/build
+    cmake --build . --target standardese_tool
+}
+
+do_install() {
+    cd ${wrksrc}/build/tool
+    vbin standardese
+}

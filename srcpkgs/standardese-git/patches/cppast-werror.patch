@@ -1,0 +1,28 @@
+diff --git external/cppast/src/CMakeLists.txt external/cppast/src/CMakeLists.txt
+index a377ea4..887c59f 100644
+--- external/cppast/src/CMakeLists.txt
++++ external/cppast/src/CMakeLists.txt
+@@ -112,7 +112,7 @@ target_compile_definitions(cppast PUBLIC
+ target_compile_options(cppast PRIVATE
+                            # clang/GCC warnings
+                            $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
+-                           -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion>
++                           -pedantic-errors -Wall -Wextra -Wconversion -Wsign-conversion>
+                            # disable noexcept type warning on GCC
+                            $<$<CXX_COMPILER_ID:GNU>: -Wno-noexcept-type>
+                            # MSVC warnings
+diff --git external/cppast/src/libclang/type_parser.cpp external/cppast/src/libclang/type_parser.cpp
+index fe2bc90..cee782b 100644
+--- external/cppast/src/libclang/type_parser.cpp
++++ external/cppast/src/libclang/type_parser.cpp
+@@ -737,6 +737,10 @@ std::unique_ptr<cpp_type> parse_type_impl(const detail::parse_context& context,
+ 
+     case CXType_Auto:
+         return make_leave_type(cur, type, [&](std::string&&) { return cpp_auto_type::build(); });
++
++    default:
++        break;
++
+     }
+ 
+     DEBUG_UNREACHABLE(detail::assert_handler{});
