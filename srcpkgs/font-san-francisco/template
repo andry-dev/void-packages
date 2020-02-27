@@ -1,0 +1,32 @@
+# Template file for 'font-san-francisco'
+pkgname=font-san-francisco
+version=1.0
+revision=1
+archs=noarch
+depends="font-util xbps-triggers"
+short_desc="San Francisco fonts"
+maintainer="andry-dev <peketribal2@gmail.com>"
+license="Proprietary"
+homepage="apple.com"
+_commit="41e809c96b84a839395a3fb973431471d9e2aced"
+wrksrc="sfwin-${_commit}"
+distfiles="https://github.com/blaisck/sfwin/archive/${_commit}.zip"
+checksum=e545f191bfd689934e28f31b799e7c6ecb3de1c8bed0e53ccad7fd59c6ddbb6b
+
+font_dirs="/usr/share/fonts/TTF"
+
+do_install() {
+    vmkdir usr/share/fonts/TTF
+
+    for font in SFPro/TrueType/*; do
+        vinstall ${font} 644 usr/share/fonts/TTF
+    done
+
+    for font in SFMono/TrueType/*; do
+        vinstall ${font} 644 usr/share/fonts/TTF
+    done
+
+    for font in SFCompact/TrueType/*; do
+        vinstall ${font} 644 usr/share/fonts/TTF
+    done
+}
