@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "monospace:size=14:antialias=true:autohint=true";
+static char *font = "monospace:size=12:antialias=true:autohint=true";
 static int borderpx = 0;
 
 /*
@@ -43,7 +43,7 @@ int allowaltscreen = 1;
 
 /* frames per second st should at maximum draw to the screen */
 static unsigned int xfps = 120;
-static unsigned int actionfps = 30;
+static unsigned int actionfps = 120;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
@@ -82,65 +82,87 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 4;
 
-/* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
-#ifdef DEFAULT_COLORS
+static const char* white_theme[] = {
 	/* 8 normal colors */
-	"#313131", 	// black
-	"#78518C",	// red
-	"#338B82",	// green
-	"#b4774b",	// yellow
-	"#355D80",	// blue
-	"#5C5491",	// magenta
-	"#5784A3",	// cyan
-	"#A9B3B7",	// white
+	"#000000",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#FFFFFF",
 
 	/* 8 bright colors */
-	"#4A4A4A", 	// black
-	"#AC75C4",	// red
-	"#53AA9C",	// green
-	"#C89364",	// yellow
-	"#477AB3",	// blue
-	"#7C72B9",	// magenta
-	"#6E9EB5",	// cyan
-	"#D7D8D9",	// white
-#else
-    // Disable all colors, thank you.
-    "#000000",
-    "#000000",
-    "#000000",
-    "#000000",
-    "#000000",
-    "#000000",
-    "#000000",
-    "#FFFFFF",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#000000",
+	"#FFFFFF",
 
-    "#000000",
-    "#000000",
-    "#000000",
-    "#000000",
-    "#000000",
-    "#000000",
-    "#000000",
-    "#FFFFFF",
-#endif
+	[255] = 0,
 
-	[255] = "#348fdd",
-    [256] = "#348fdd",
-
-	[257] = "#000000",	// foreground
-	[258] = "#FFFFFF",	// background
+	/* more colors can be added after 255 to use with DefaultXX */
+	[256] = "#348FDD", // CS
+	[257] = "#348FDD", // RCS
+	[258] = "#000000", // FG
+	[259] = "#FFFFFF", // BG
 };
 
+static const char* black_theme[] = {
+	/* 8 normal colors */
+	"#000000",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
 
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-unsigned int defaultfg = 257;
-unsigned int defaultbg = 258;
-static unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 255;
+	/* 8 bright colors */
+	"#000000",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+	"#FFFFFF",
+
+	[255] = 0,
+
+	/* more colors can be added after 255 to use with DefaultXX */
+	[256] = "#348FDD", // CS
+	[257] = "#348FDD", // RCS
+	[258] = "#FFFFFF", // FG
+	[259] = "#000000", // BG
+};
+
+static const ColorTheme colorthemes[] = {
+    {
+        .colortable = white_theme,
+        .tablelen = 260,
+        .defaultcs = 256,
+        .defaultrcs = 257,
+        .defaultfg = 0,
+        .defaultbg = 7,
+    },
+    {
+        .colortable = black_theme,
+        .tablelen = 260,
+        .defaultcs = 256,
+        .defaultrcs = 257,
+        .defaultfg = 7,
+        .defaultbg = 0,
+    },
+};
+
+static const int night_time_start = 20;
+static const int day_time_start = 7;
 
 /*
  * Default shape of cursor

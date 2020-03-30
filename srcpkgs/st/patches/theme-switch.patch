@@ -1,0 +1,393 @@
+diff -Naur st-0.8.2/config.def.h st-theme/config.def.h
+--- config.def.h	2019-02-09 12:50:41.000000000 +0100
++++ config.def.h	2020-03-30 16:13:26.293919820 +0200
+@@ -82,44 +82,87 @@
+  */
+ unsigned int tabspaces = 8;
+ 
+-/* Terminal colors (16 first used in escape sequence) */
+-static const char *colorname[] = {
++static const char* white_theme[] = {
+ 	/* 8 normal colors */
+-	"black",
+-	"red3",
+-	"green3",
+-	"yellow3",
+-	"blue2",
+-	"magenta3",
+-	"cyan3",
+-	"gray90",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#FFFFFF",
+ 
+ 	/* 8 bright colors */
+-	"gray50",
+-	"red",
+-	"green",
+-	"yellow",
+-	"#5c5cff",
+-	"magenta",
+-	"cyan",
+-	"white",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#000000",
++	"#FFFFFF",
+ 
+ 	[255] = 0,
+ 
+ 	/* more colors can be added after 255 to use with DefaultXX */
+-	"#cccccc",
+-	"#555555",
++	[256] = "#348FDD", // CS
++	[257] = "#348FDD", // RCS
++	[258] = "#000000", // FG
++	[259] = "#FFFFFF", // BG
+ };
+ 
++static const char* black_theme[] = {
++	/* 8 normal colors */
++	"#000000",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
+ 
+-/*
+- * Default colors (colorname index)
+- * foreground, background, cursor, reverse cursor
+- */
+-unsigned int defaultfg = 7;
+-unsigned int defaultbg = 0;
+-static unsigned int defaultcs = 256;
+-static unsigned int defaultrcs = 257;
++	/* 8 bright colors */
++	"#000000",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++	"#FFFFFF",
++
++	[255] = 0,
++
++	/* more colors can be added after 255 to use with DefaultXX */
++	[256] = "#348FDD", // CS
++	[257] = "#348FDD", // RCS
++	[258] = "#FFFFFF", // FG
++	[259] = "#000000", // BG
++};
++
++static const ColorTheme colorthemes[] = {
++    {
++        .colortable = white_theme,
++        .tablelen = 260,
++        .defaultcs = 256,
++        .defaultrcs = 257,
++        .defaultfg = 258,
++        .defaultbg = 259,
++    },
++    {
++        .colortable = black_theme,
++        .tablelen = 260,
++        .defaultcs = 256,
++        .defaultrcs = 257,
++        .defaultfg = 258,
++        .defaultbg = 259,
++    },
++};
++
++static const int night_time_start = 20;
++static const int day_time_start = 7;
+ 
+ /*
+  * Default shape of cursor
+diff -Naur st-0.8.2/st.c st-theme/st.c
+--- st.c	2019-02-09 12:50:41.000000000 +0100
++++ st.c	2020-03-30 15:55:01.322150568 +0200
+@@ -1019,8 +1019,8 @@
+ 
+ 	term.c = (TCursor){{
+ 		.mode = ATTR_NULL,
+-		.fg = defaultfg,
+-		.bg = defaultbg
++		.fg = current_theme->defaultfg,
++		.bg = current_theme->defaultbg
+ 	}, .x = 0, .y = 0, .state = CURSOR_DEFAULT};
+ 
+ 	memset(term.tabs, 0, term.col * sizeof(*term.tabs));
+@@ -1040,10 +1040,19 @@
+ 	}
+ }
+ 
++void tresetcolor()
++{
++    xloadcols();
++    term.c.attr.fg = current_theme->defaultfg;
++    term.c.attr.bg = current_theme->defaultbg;
++    treset();
++    //tswapscreen();
++}
++
+ void
+ tnew(int col, int row)
+ {
+-	term = (Term){ .c = { .attr = { .fg = defaultfg, .bg = defaultbg } } };
++	term = (Term){ .c = { .attr = { .fg = current_theme->defaultfg, .bg = current_theme->defaultbg } } };
+ 	tresize(col, row);
+ 	treset();
+ }
+@@ -1378,8 +1387,8 @@
+ 				ATTR_REVERSE    |
+ 				ATTR_INVISIBLE  |
+ 				ATTR_STRUCK     );
+-			term.c.attr.fg = defaultfg;
+-			term.c.attr.bg = defaultbg;
++			term.c.attr.fg = current_theme->defaultfg;
++			term.c.attr.bg = current_theme->defaultbg;
+ 			break;
+ 		case 1:
+ 			term.c.attr.mode |= ATTR_BOLD;
+@@ -1433,14 +1442,14 @@
+ 				term.c.attr.fg = idx;
+ 			break;
+ 		case 39:
+-			term.c.attr.fg = defaultfg;
++			term.c.attr.fg = current_theme->defaultfg;
+ 			break;
+ 		case 48:
+ 			if ((idx = tdefcolor(attr, &i, l)) >= 0)
+ 				term.c.attr.bg = idx;
+ 			break;
+ 		case 49:
+-			term.c.attr.bg = defaultbg;
++			term.c.attr.bg = current_theme->defaultbg;
+ 			break;
+ 		default:
+ 			if (BETWEEN(attr[i], 30, 37)) {
+diff -Naur st-0.8.2/st.h st-theme/st.h
+--- st.h	2019-02-09 12:50:41.000000000 +0100
++++ st.h	2020-03-30 16:07:04.261855971 +0200
+@@ -76,6 +76,16 @@
+ 	const void *v;
+ } Arg;
+ 
++typedef struct
++{
++    const char** colortable;
++    unsigned tablelen;
++    unsigned int defaultcs;
++    unsigned int defaultrcs;
++    unsigned int defaultfg;
++    unsigned int defaultbg;
++} ColorTheme;
++
+ void die(const char *, ...);
+ void redraw(void);
+ void draw(void);
+@@ -87,6 +97,7 @@
+ 
+ int tattrset(int);
+ void tnew(int, int);
++void tresetcolor(void);
+ void tresize(int, int);
+ void tsetdirtattr(int);
+ void ttyhangup(void);
+@@ -118,5 +129,6 @@
+ extern int allowaltscreen;
+ extern char *termname;
+ extern unsigned int tabspaces;
+-extern unsigned int defaultfg;
+-extern unsigned int defaultbg;
++//extern unsigned int defaultfg;
++//extern unsigned int defaultbg;
++const ColorTheme* current_theme;
+diff -Naur st-0.8.2/x.c st-theme/x.c
+--- x.c	2019-02-09 12:50:41.000000000 +0100
++++ x.c	2020-03-30 16:08:20.925176160 +0200
+@@ -720,7 +720,7 @@
+ 			return XftColorAllocValue(xw.dpy, xw.vis,
+ 			                          xw.cmap, &color, ncolor);
+ 		} else
+-			name = colorname[i];
++			name = current_theme->colortable[i];
+ 	}
+ 
+ 	return XftColorAllocName(xw.dpy, xw.vis, xw.cmap, name, ncolor);
+@@ -737,14 +737,14 @@
+ 		for (cp = dc.col; cp < &dc.col[dc.collen]; ++cp)
+ 			XftColorFree(xw.dpy, xw.vis, xw.cmap, cp);
+ 	} else {
+-		dc.collen = MAX(LEN(colorname), 256);
++		dc.collen = MAX(current_theme->tablelen, 256);
+ 		dc.col = xmalloc(dc.collen * sizeof(Color));
+ 	}
+ 
+ 	for (i = 0; i < dc.collen; i++)
+ 		if (!xloadcolor(i, NULL, &dc.col[i])) {
+-			if (colorname[i])
+-				die("could not allocate color '%s'\n", colorname[i]);
++			if (current_theme->colortable[i])
++				die("could not allocate color '%s'\n", current_theme->colortable[i]);
+ 			else
+ 				die("could not allocate color %d\n", i);
+ 		}
+@@ -776,7 +776,7 @@
+ xclear(int x1, int y1, int x2, int y2)
+ {
+ 	XftDrawRect(xw.draw,
+-			&dc.col[IS_SET(MODE_REVERSE)? defaultfg : defaultbg],
++			&dc.col[IS_SET(MODE_REVERSE)? current_theme->defaultfg : current_theme->defaultbg],
+ 			x1, y1, x2-x1, y2-y1);
+ }
+ 
+@@ -1030,8 +1030,8 @@
+ 		xw.t += DisplayHeight(xw.dpy, xw.scr) - win.h - 2;
+ 
+ 	/* Events */
+-	xw.attrs.background_pixel = dc.col[defaultbg].pixel;
+-	xw.attrs.border_pixel = dc.col[defaultbg].pixel;
++	xw.attrs.background_pixel = dc.col[current_theme->defaultbg].pixel;
++	xw.attrs.border_pixel = dc.col[current_theme->defaultbg].pixel;
+ 	xw.attrs.bit_gravity = NorthWestGravity;
+ 	xw.attrs.event_mask = FocusChangeMask | KeyPressMask
+ 		| ExposureMask | VisibilityChangeMask | StructureNotifyMask
+@@ -1051,7 +1051,7 @@
+ 			&gcvalues);
+ 	xw.buf = XCreatePixmap(xw.dpy, xw.win, win.w, win.h,
+ 			DefaultDepth(xw.dpy, xw.scr));
+-	XSetForeground(xw.dpy, dc.gc, dc.col[defaultbg].pixel);
++	XSetForeground(xw.dpy, dc.gc, dc.col[current_theme->defaultbg].pixel);
+ 	XFillRectangle(xw.dpy, xw.buf, dc.gc, 0, 0, win.w, win.h);
+ 
+ 	/* font spec buffer */
+@@ -1082,13 +1082,13 @@
+ 	cursor = XCreateFontCursor(xw.dpy, mouseshape);
+ 	XDefineCursor(xw.dpy, xw.win, cursor);
+ 
+-	if (XParseColor(xw.dpy, xw.cmap, colorname[mousefg], &xmousefg) == 0) {
++	if (XParseColor(xw.dpy, xw.cmap, current_theme->colortable[mousefg], &xmousefg) == 0) {
+ 		xmousefg.red   = 0xffff;
+ 		xmousefg.green = 0xffff;
+ 		xmousefg.blue  = 0xffff;
+ 	}
+ 
+-	if (XParseColor(xw.dpy, xw.cmap, colorname[mousebg], &xmousebg) == 0) {
++	if (XParseColor(xw.dpy, xw.cmap, current_theme->colortable[mousebg], &xmousebg) == 0) {
+ 		xmousebg.red   = 0x0000;
+ 		xmousebg.green = 0x0000;
+ 		xmousebg.blue  = 0x0000;
+@@ -1301,8 +1301,8 @@
+ 		fg = &dc.col[base.fg + 8];
+ 
+ 	if (IS_SET(MODE_REVERSE)) {
+-		if (fg == &dc.col[defaultfg]) {
+-			fg = &dc.col[defaultbg];
++		if (fg == &dc.col[current_theme->defaultfg]) {
++			fg = &dc.col[current_theme->defaultbg];
+ 		} else {
+ 			colfg.red = ~fg->color.red;
+ 			colfg.green = ~fg->color.green;
+@@ -1313,8 +1313,8 @@
+ 			fg = &revfg;
+ 		}
+ 
+-		if (bg == &dc.col[defaultbg]) {
+-			bg = &dc.col[defaultfg];
++		if (bg == &dc.col[current_theme->defaultbg]) {
++			bg = &dc.col[current_theme->defaultfg];
+ 		} else {
+ 			colbg.red = ~bg->color.red;
+ 			colbg.green = ~bg->color.green;
+@@ -1420,21 +1420,21 @@
+ 
+ 	if (IS_SET(MODE_REVERSE)) {
+ 		g.mode |= ATTR_REVERSE;
+-		g.bg = defaultfg;
++		g.bg = current_theme->defaultfg;
+ 		if (selected(cx, cy)) {
+-			drawcol = dc.col[defaultcs];
+-			g.fg = defaultrcs;
++			drawcol = dc.col[current_theme->defaultcs];
++			g.fg = current_theme->defaultrcs;
+ 		} else {
+-			drawcol = dc.col[defaultrcs];
+-			g.fg = defaultcs;
++			drawcol = dc.col[current_theme->defaultrcs];
++			g.fg = current_theme->defaultcs;
+ 		}
+ 	} else {
+ 		if (selected(cx, cy)) {
+-			g.fg = defaultfg;
+-			g.bg = defaultrcs;
++			g.fg = current_theme->defaultfg;
++			g.bg = current_theme->defaultrcs;
+ 		} else {
+-			g.fg = defaultbg;
+-			g.bg = defaultcs;
++			g.fg = current_theme->defaultbg;
++			g.bg = current_theme->defaultcs;
+ 		}
+ 		drawcol = dc.col[g.bg];
+ 	}
+@@ -1551,7 +1551,7 @@
+ 			win.h, 0, 0);
+ 	XSetForeground(xw.dpy, dc.gc,
+ 			dc.col[IS_SET(MODE_REVERSE)?
+-				defaultfg : defaultbg].pixel);
++				current_theme->defaultfg : current_theme->defaultbg].pixel);
+ }
+ 
+ void
+@@ -1762,6 +1762,28 @@
+ }
+ 
+ void
++update_theme()
++{
++    const time_t now = time(0);;
++    const struct tm* current_time = localtime(&now);
++
++    const int hour = current_time->tm_hour;
++
++    const int theme_index = (hour >= night_time_start || hour < day_time_start) ? 1 : 0;
++
++    if (!current_theme)
++    {
++        current_theme = &colorthemes[theme_index];
++    }
++    else if (current_theme != &colorthemes[theme_index])
++    {
++        current_theme = &colorthemes[theme_index];
++        tresetcolor();
++        redraw();
++    }
++}
++
++void
+ run(void)
+ {
+ 	XEvent ev;
+@@ -1945,6 +1967,7 @@
+ 	XSetLocaleModifiers("");
+ 	cols = MAX(cols, 1);
+ 	rows = MAX(rows, 1);
++    update_theme();
+ 	tnew(cols, rows);
+ 	xinit(cols, rows);
+ 	xsetenv();
