@@ -13,7 +13,7 @@ maintainer="andry-dev <peketribal2@gmail.com>"
 license="Apache-2.0, custom:Vim"
 homepage="https://neovim.io"
 distfiles="https://github.com/neovim/neovim/archive/nightly.tar.gz>neovim-$(date "+%Y-%m-%d").tar.gz"
-checksum=b9d94aed8369ff072d8c1d277fa7492ffdb30a6ff36677576e3ccaa475732c9f
+checksum=7ec86441bbb1aafdeb267a2ab91c50fbe8f05a92ab8418a31f5a6614c0bf4d91
 provides="neovim-0.4.3_1"
 
 alternatives="
