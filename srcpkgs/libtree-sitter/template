@@ -1,0 +1,27 @@
+# Template file for 'libtree-sitter'
+pkgname=libtree-sitter
+version=0.17.3
+revision=1
+wrksrc="tree-sitter-${version}"
+build_style=gnu-makefile
+short_desc="Incremental parsing system for programming tools"
+maintainer="andry-dev <peketribal2@gmail.com>"
+license="MIT"
+homepage="https://tree-sitter.github.io"
+distfiles="https://github.com/tree-sitter/tree-sitter/archive/${version}.tar.gz"
+checksum=a897e5c9a7ccb74271d9b20d59121d2d2e9de8b896c4d1cfaac0f8104c1ef9f8
+
+post_install() {
+	vlicense LICENSE
+}
+
+libtree-sitter-devel_package() {
+	depends="${makedepends} libtree-sitter>=${version}_${revision}"
+	short_desc+=" - development files"
+
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}
