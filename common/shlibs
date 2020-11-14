@@ -4044,3 +4044,4 @@ libtdb-wrap-samba4.so samba-libs-4.13.3_1
 libutil-cmdline-samba4.so samba-libs-4.13.2_1
 libwinbind-client-samba4.so samba-libs-4.13.2_1
 libsixel.so.1 libsixel-1.8.6_1
+libtree-sitter.so.0 libtree-sitter-0.17.3_1
