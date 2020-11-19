@@ -2,18 +2,18 @@
 pkgname=neovim-git
 _currdate=$(date "+%Y.%m.%d")
 version=0.5.${_currdate}
-revision=2
+revision=3
 wrksrc="neovim-nightly"
 build_style=cmake
 configure_args="-DENABLE_JEMALLOC=0 -DUTF8PROC_INCLUDE_DIR=/usr/include/libutf8proc"
-hostmakedepends="pkg-config gperf LuaJIT lua51-lpeg lua51-mpack gettext"
+hostmakedepends="pkg-config gperf LuaJIT lua51-lpeg lua51-mpack gettext git"
 makedepends="libtermkey-devel libuv-devel libvterm-devel msgpack-devel LuaJIT-devel libluv-devel libutf8proc-devel gettext-devel libtree-sitter-devel"
 short_desc="Fork of Vim aiming to improve user experience, plugins and GUIs"
 maintainer="andry-dev <peketribal2@gmail.com>"
 license="Apache-2.0, custom:Vim"
 homepage="https://neovim.io"
-distfiles="https://github.com/neovim/neovim/archive/nightly.tar.gz>neovim-$(date "+%Y-%m-%d").tar.gz"
-checksum=9237556d59de80149c779a0016d5a46887f0204afb9dc6784f13de7d06af593e
+#distfiles="https://github.com/neovim/neovim/archive/nightly.tar.gz>neovim-$(date "+%Y-%m-%d").tar.gz"
+#checksum=9237556d59de80149c779a0016d5a46887f0204afb9dc6784f13de7d06af593e
 provides="neovim-0.4.3_1"
 
 alternatives="
@@ -27,6 +27,10 @@ alternatives="
 if [ "$CROSS_BUILD" ]; then
 	hostmakedepends+=" qemu-user-static"
 fi
+
+do_fetch() {
+    git clone --depth=1 https://github.com/neovim/neovim neovim-nightly
+}
 
 pre_configure() {
 	vsed -i runtime/CMakeLists.txt \
