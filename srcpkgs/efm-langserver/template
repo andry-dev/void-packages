@@ -1,0 +1,21 @@
+# Template file for 'efm-langserver'
+pkgname=efm-langserver
+version=0.0.25
+revision=1
+#wrksrc=
+build_style=go
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends=""
+short_desc="General purpose Language Server"
+go_import_path="github.com/mattn/efm-langserver"
+maintainer="andry-dev <peketribal2@gmail.com>"
+license="MIT"
+homepage="https://github.com/mattn/efm-langserver"
+distfiles="https://github.com/mattn/efm-langserver/archive/v${version}.tar.gz"
+checksum=e6cdb560de29cc2c18a55562f48ced02e5033a3319f1dd02522d096dca7584ef
