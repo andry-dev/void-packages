@@ -4,25 +4,18 @@ version=15.f8
 revision=1
 archs="x86_64"
 wrksrc="boot"
-create_wrksrc=yes
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="rpmextract"
-makedepends=""
-depends=""
 short_desc="Initial UEFI bootloader that handles chaining to a trusted full bootloader under secure boot environments"
 maintainer="andry-dev <peketribal2@gmail.com>"
 license="BSD"
 homepage="https://apps.fedoraproject.org/packages/shim"
-distfiles="https://kojipkgs.fedoraproject.org/packages/shim-signed/13/4/x86_64/shim-x64-13-4.x86_64.rpm"
-checksum=c3d130cea7c3d240d8cfb7a4d986235e5e8b5ba38d9cbe5535fd711743e9777e
+distfiles="https://kojipkgs.fedoraproject.org/packages/shim-signed/15/2/x86_64/shim-x64-15-2.x86_64.rpm"
+checksum=fa3e4ca73c4019b278230f54b9c920571384c96c746e27f0b844d443c1fe0abb
 
 do_install() {
     vmkdir usr/share/shim
-    vinstall efi/EFI/fedora/shimx64.efi 0644 usr/share/shim
-    vinstall efi/EFI/fedora/mmx64.efi 0644 usr/share/shim
-    vinstall efi/EFI/BOOT/fbx64.efi 0644 usr/share/shim
+    vinstall boot/efi/EFI/fedora/shimx64.efi 0644 usr/share/shim
+    vinstall boot/efi/EFI/fedora/mmx64.efi 0644 usr/share/shim
+    vinstall boot/efi/EFI/BOOT/fbx64.efi 0644 usr/share/shim
+    vinstall boot/efi/EFI/BOOT/MokManager.efi 0644 usr/share/shim
 }
