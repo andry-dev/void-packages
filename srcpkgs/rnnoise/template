@@ -1,0 +1,39 @@
+# Template file for 'rnnoise'
+pkgname=rnnoise
+version=0.4.1
+_commit=90ec41ef659fd82cfec2103e9bb7fc235e9ea66c
+revision=1
+#archs="i686 x86_64"
+wrksrc=rnnoise-${_commit}
+#create_wrksrc=yes
+build_style=gnu-configure
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="autoconf automake libtool"
+makedepends=""
+depends=""
+short_desc=" Recurrent neural network for audio noise reduction "
+maintainer="andry-dev <peketribal2@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://jmvalin.ca/demo/rnnoise/"
+distfiles="https://github.com/xiph/rnnoise/archive/${_commit}.zip"
+checksum=8740389c70199a6a35e906261e21009dbdeab0c3adb2f01ecdc030b9c076cd82
+
+pre_configure() {
+    ./autogen.sh
+}
+
+rnnoise-devel_package() {
+    short_desc+=" - development files"
+    depends="${sourcepkg}>=${version}_${revision}"
+
+    pkg_install() {
+        vmove usr/include
+        vmove "usr/lib/*.a"
+        vmove "usr/lib/*.so"
+        vmove usr/lib/pkgconfig
+    }
+}
