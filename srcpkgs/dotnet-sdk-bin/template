@@ -1,0 +1,56 @@
+# Template file for 'dotnet-sdk-bin'
+pkgname=dotnet-sdk-bin
+version=5.0.101
+revision=1
+archs="x86_64* aarch64"
+create_wrksrc=yes
+short_desc="SDK for making dotnet CORE apps"
+maintainer="KawaiiAmber <japaneselearning101@gmail.com>"
+license="MIT"
+homepage="https://dotnet.microsoft.com"
+# This forces the binaries to use LibreSSL via an OpenSSL override, this may cause ABI issues
+restricted=yes
+
+case "${XBPS_TARGET_MACHINE}" in
+	x86_64)
+	_arch="x64"
+	_path="a0487784-534a-4912-a4dd-017382083865/be16057043a8f7b6f08c902dc48dd677"
+	checksum=23df1eca7eb1302dfb10f4edce7edf7150e57698576f61b2dcb777c833cbd80c
+	;;
+	x86_64-musl)
+	_arch="musl-x64"
+	_path="a84c2dee-3074-4c27-9b31-af0bc9a9ebcf/a8eb9a11b81c5b7119cf1578632ed186"
+	checksum=1ecf97cab3d9d38af32ee0cbaaa41315a6896dc0980218ac227329f989a5ef51
+	# The binary somehow has a bad link, so this is added to common/shlibs
+	shlib_provides="libc.musl-x86_64.so.1"
+	;;
+	aarch64)
+	_arch="arm64"
+	_path="2add7523-39ec-413a-b8a7-24361cc4e599/30489ebd7ebcc723da48a64669860fd0"
+	checksum=86deac35700b6ab121007a1b92128f31451c2b99cc9c7584a583e516638fd4ae
+	;;
+esac
+
+distfiles="https://download.visualstudio.microsoft.com/download/pr/${_path}/dotnet-sdk-${version}-linux-${_arch}.tar.gz"
+
+_prof=${DESTDIR}/etc/profile.d
+_target=${DESTDIR}/opt/dotnet
+
+do_configure() {
+	vmkdir ${_prof}
+	vcopy ${FILESDIR}/dotnet.sh ${_prof}
+}
+
+do_install() {
+	vmkdir ${_target}
+	vcopy packs ${_target}
+	vcopy sdk ${_target}
+	vcopy shared ${_target}
+	vcopy templates ${_target}
+	vcopy host ${_target}
+	vcopy dotnet ${_target}
+}
+
+post_install() {
+	vlicense LICENSE.txt
+}
