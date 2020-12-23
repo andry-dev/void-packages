@@ -1,0 +1,12 @@
+# Template file for 'rock64-base'
+pkgname=rock64-base
+version=1.0
+revision=1
+short_desc="Void Linux ROCK64 base files"
+maintainer="andry-dev <peketribal2@gmail.com>"
+license="Public Domain"
+homepage="https://www.voidlinux.org"
+build_style=meta
+
+archs="aarch64*"
+depends="virtual?ntp-daemon pinebookpro-firmware rock64-uboot rock64-kernel-ayufan"
