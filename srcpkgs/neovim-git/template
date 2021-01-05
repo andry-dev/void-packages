@@ -2,7 +2,7 @@
 pkgname=neovim-git
 _currdate=$(date "+%Y.%m.%d")
 version=0.5.${_currdate}
-revision=3
+revision=1
 wrksrc="neovim-nightly"
 build_style=cmake
 configure_args="-DENABLE_JEMALLOC=0 -DUTF8PROC_INCLUDE_DIR=/usr/include/libutf8proc"
