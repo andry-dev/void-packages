@@ -1,6 +1,6 @@
 # Template file for 'exiftool'
 pkgname=exiftool
-version=12.16
+version=12.18
 revision=1
 wrksrc="Image-ExifTool-${version}"
 build_style=perl-module
@@ -13,4 +13,4 @@ license="Artistic-1.0-Perl, GPL-1.0-or-later"
 homepage="https://exiftool.org/"
 changelog="https://exiftool.org/history.html"
 distfiles="https://exiftool.org/Image-ExifTool-${version}.tar.gz"
-checksum=c140797d72acdaf04f7ce0629867353510b56fbe99ceaac0742bbc379610756a
+checksum=56814e537652d2d0f84bd891a8f3ab5f9f5a47743ef58cd0a18a1f9a02fc3404
