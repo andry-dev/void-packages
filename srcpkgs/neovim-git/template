@@ -2,12 +2,13 @@
 pkgname=neovim-git
 _currdate=$(date "+%Y.%m.%d")
 version=0.5.${_currdate}
-revision=1
+revision=2
 wrksrc="neovim-nightly"
 build_style=cmake
 configure_args="-DENABLE_JEMALLOC=0 -DUTF8PROC_INCLUDE_DIR=/usr/include/libutf8proc"
 hostmakedepends="pkg-config gperf LuaJIT lua51-lpeg lua51-mpack gettext git"
-makedepends="libtermkey-devel libuv-devel libvterm-devel msgpack-devel LuaJIT-devel libluv-devel libutf8proc-devel gettext-devel libtree-sitter-devel"
+makedepends="libtermkey-devel libuv-devel libvterm-devel msgpack-devel LuaJIT-devel libluv-devel libutf8proc-devel gettext-devel tree-sitter-devel"
+depends="tree-sitter"
 short_desc="Fork of Vim aiming to improve user experience, plugins and GUIs"
 maintainer="andry-dev <peketribal2@gmail.com>"
 license="Apache-2.0, custom:Vim"
