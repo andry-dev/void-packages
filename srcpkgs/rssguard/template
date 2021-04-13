@@ -1,6 +1,6 @@
 # Template file for 'rssguard'
 pkgname=rssguard
-version=3.9.0
+version=3.9.2
 revision=1
 build_style=qmake
 configure_args="CONFIG+=release LRELEASE_EXECUTABLE=lrelease-qt5 USE_WEBENGINE=false"
@@ -12,7 +12,7 @@ maintainer="mobinmob <mobinmob@disroot.org>"
 license="GPL-3.0-only"
 homepage="https://github.com/martinrotter/rssguard"
 distfiles="https://github.com/martinrotter/rssguard/archive/${version}.tar.gz"
-checksum=79ca9cccc6173e3a1f58ff49a5d9896d87e009ecd831619ce4ebe2e4e476d7a4
+checksum=05eb628ff085ff10056289fd83b5e3b0583c19e3711795ade024bdfe71de5d97
 
 post_install() {
 	# Install rssguard icon manually
