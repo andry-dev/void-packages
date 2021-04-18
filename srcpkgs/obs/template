@@ -1,25 +1,40 @@
 # Template file for 'obs'
 pkgname=obs
 version=26.1.2
-revision=1
+revision=2
 archs="i686* x86_64* ppc64le*"
 wrksrc="obs-studio-${version}"
 build_style=cmake
-configure_args="-DOBS_VERSION_OVERRIDE=${version}"
+configure_args="-DOBS_VERSION_OVERRIDE=${version} -DBUILD_BROWSER=ON -DCEF_ROOT_DIR='../../cef_binary_4280_linux64'"
 hostmakedepends="pkg-config swig"
 makedepends="LuaJIT-devel fdk-aac-devel ffmpeg-devel glu-devel jack-devel
  libXcomposite-devel libcurl-devel pulseaudio-devel python3-devel
  qt5-x11extras-devel qt5-svg-devel speexdsp-devel v4l-utils-devel vlc-devel
- x264-devel mbedtls-devel jansson-devel"
+ x264-devel mbedtls-devel jansson-devel pipewire-devel nspr-devel nss-devel"
 short_desc="Open Broadcaster Software"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="GPL-2.0-or-later"
 homepage="https://obsproject.com"
+_browser_commit="53cfefe74a2347e9054212bb4c014766e53ee5f4"
+_vst_commit="cca219fa3613dbc65de676ab7ba29e76865fa6f8"
 changelog="https://github.com/obsproject/obs-studio/releases"
-distfiles="https://github.com/obsproject/obs-studio/archive/${version}.tar.gz"
-checksum=bc8b4c61ba4aae87b70c589a6a5b8538e4f03121b31e9b98a2071d9f6006b897
+distfiles="https://github.com/obsproject/obs-studio/archive/${version}.tar.gz
+ https://github.com/obsproject/obs-browser/archive/${_browser_commit}.tar.gz
+ https://github.com/obsproject/obs-vst/archive/${_vst_commit}.tar.gz
+ https://cdn-fastly.obsproject.com/downloads/cef_binary_4280_linux64.tar.bz2"
+checksum="bc8b4c61ba4aae87b70c589a6a5b8538e4f03121b31e9b98a2071d9f6006b897
+ 54b8fdeb52e1bcf738b567bf29fb54b7c5274a75acc0b2879d3b7d9cb85530b6
+ f7dd80df57065c458129b326856eca8209efa3047c8442acb7888bf9b66ad0de
+ d91c78349ecbfbfdfc18d5f882dc28b939028f1a631191c603b5d0d938ada972"
 
 CFLAGS="-fcommon"
+
+post_extract() {
+	rmdir ./plugins/obs-browser
+	mv -T "../obs-browser-${_browser_commit}" ./plugins/obs-browser
+	rmdir ./plugins/obs-vst
+	mv -T "../obs-vst-${_vst_commit}" ./plugins/obs-vst
+}
 
 obs-devel_package() {
 	short_desc+=" - development files"
