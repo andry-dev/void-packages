@@ -5,7 +5,7 @@ version=0.5.${_currdate}
 revision=2
 wrksrc="neovim-nightly"
 build_style=cmake
-configure_args="-DENABLE_JEMALLOC=0 -DUTF8PROC_INCLUDE_DIR=/usr/include/libutf8proc"
+configure_args="-DENABLE_JEMALLOC=0 -DUTF8PROC_INCLUDE_DIR=/usr/include/libutf8proc -DCMAKE_BUILD_TYPE=Release"
 hostmakedepends="pkg-config gperf LuaJIT lua51-lpeg lua51-mpack gettext git"
 makedepends="libtermkey-devel libuv-devel libvterm-devel msgpack-devel LuaJIT-devel libluv-devel libutf8proc-devel gettext-devel tree-sitter-devel"
 depends="tree-sitter"
