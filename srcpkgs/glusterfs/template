@@ -9,7 +9,7 @@ configure_args="--with-mountutildir=/usr/bin ac_cv_file__etc_debian_version=no
 pycompile_dirs="/usr/libexec/glusterfs/python/syncdaemon"
 hostmakedepends="automake flex libtool pkg-config python3 rpcsvc-proto"
 makedepends="acl-devel libaio-devel libtirpc-devel openssl-devel
- liburcu-devel libxml2-devel rdma-core-devel sqlite-devel"
+ liburcu-devel libxml2-devel rdma-core-devel sqlite-devel liburing-devel"
 # python is required by gsyncd.
 depends="python3"
 short_desc="Free and open source software scalable network filesystem (client)"
