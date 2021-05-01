@@ -1,0 +1,88 @@
+# Template file for 'opencl-amd'
+pkgname=opencl-amd
+_major=21.10
+_minor=1247438
+_amdver=2.4.100
+version=${_major}.${_minor}
+revision=1
+archs="x86_64"
+#wrksrc=
+#create_wrksrc=yes
+#build_style=gnu-configure
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="wget tar xz"
+makedepends=""
+depends=""
+short_desc="OpenCL userspace driver as provided in the amdgpu-pro driver stack. This package is intended to work along with the free amdgpu stack."
+maintainer="andry-dev <private@example.org>"
+license="GPL-3.0-or-later"
+homepage="https://amd.com"
+#distfiles=""
+#checksum=badbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadb
+_file="amdgpu-pro-${_major}-${_minor}-ubuntu-20.04.tar.xz"
+_shared="opt/amdgpu-pro/lib/x86_64-linux-gnu"
+_shared2="opt/amdgpu/lib/x86_64-linux-gnu"
+
+do_fetch() {
+    wget --referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-10 -N "https://drivers.amd.com/drivers/linux/${_file}"
+}
+
+do_extract() {
+    tar xvf "../${_file}" -C "${wrksrc}" --strip-components=1
+}
+
+do_install() {
+	ar x "${wrksrc}/opencl-rocr-amdgpu-pro_${_major}-${_minor}_amd64.deb"
+	tar xJf data.tar.xz
+	ar x "${wrksrc}/rocm-device-libs-amdgpu-pro_1.0.0-${_minor}_amd64.deb"
+	tar xJf data.tar.xz
+	ar x "${wrksrc}/hsa-runtime-rocr-amdgpu_1.3.0-${_minor}_amd64.deb"
+	tar xJf data.tar.xz
+	ar x "${wrksrc}/hsakmt-roct-amdgpu_1.0.9-${_minor}_amd64.deb"
+	tar xJf data.tar.xz
+	ar x "${wrksrc}/hip-rocr-amdgpu-pro_${_major}-${_minor}_amd64.deb"
+	tar xJf data.tar.xz
+
+	# comgr
+	ar x "${wrksrc}/comgr-amdgpu-pro_2.0.0-${_minor}_amd64.deb"
+	tar xJf data.tar.xz
+
+	# orca
+	ar x "${wrksrc}/opencl-orca-amdgpu-pro-icd_${_major}-${_minor}_amd64.deb"
+	tar xJf data.tar.xz
+
+	cd "${_shared}"
+    pwd
+	sed -i "s|libdrm_amdgpu|libdrm_amdgpo|g" libamdocl-orca64.so
+
+    cd "${wrksrc}"
+	# mkdir -p "${wrksrc}/libdrm"
+	# cd "${wrksrc}/libdrm"
+	ar x "${wrksrc}/libdrm-amdgpu-amdgpu1_${_amdver}-${_minor}_amd64.deb"
+	tar xJf data.tar.xz
+	cd "${_shared2}"
+	rm "libdrm_amdgpu.so.1"
+	mv "libdrm_amdgpu.so.1.0.0" "libdrm_amdgpo.so.1.0.0"
+	ln -s "libdrm_amdgpo.so.1.0.0" "libdrm_amdgpo.so.1"
+
+    cd "${wrksrc}/${_shared}"
+    ln -s "libamd_comgr.so.2.0.0" "libamd_comgr.so"
+    cd "${wrksrc}"
+
+    vcopy "${wrksrc}/etc" etc
+    vcopy "${wrksrc}/${_shared}/*.so*" usr/lib
+    vcopy "${wrksrc}/${_shared2}/libdrm_amdgpo.so*" usr/lib
+
+
+    vmkdir opt/amdgpu-pro
+    vcopy "${wrksrc}/opt/amdgpu-pro/bin" opt/amdgpu-pro
+    vcopy "${wrksrc}/opt/amdgpu-pro/share" opt/amdgpu-pro
+
+    vmkdir opt/amdgpu/share/libdrm
+    cd "${DESTDIR}/opt/amdgpu/share/libdrm"
+    ln -s /usr/share/libdrm/amdgpu.ids amdgpu.ids
+}

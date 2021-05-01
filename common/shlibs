@@ -3929,3 +3929,10 @@ libldacBT_enc.so.2 ldacBT-2.0.2.3_1
 libgumbo.so.1 gumbo-parser-0.10.1_2
 libmariadb.so.3 libmariadbclient-10.5.9_1
 libmariadbd.so.19 libmariadbclient-10.5.9_1
+libhsa-runtime64.so.1 opencl-amd-21.10.124748_1
+libamdhip64.so.4 opencl-amd-21.10.124748_1
+libamd_comgr.so.2 opencl-amd-21.10.124748_1
+libdrm_amdgpu.so.1 opencl-amd-21.10.124748_1
+libhsakmt.so.1 opencl-amd-21.10.124748_1
+libamdocl64.so opencl-amd-21.10.124748_1
+libcltrace.so opencl-amd-21.10.124748_1
