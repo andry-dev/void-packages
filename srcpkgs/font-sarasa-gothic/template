@@ -1,6 +1,6 @@
 # Template file for 'font-sarasa-gothic'
 pkgname=font-sarasa-gothic
-version=0.30.2
+version=0.31.1
 revision=1
 create_wrksrc=yes
 depends="font-util"
@@ -9,7 +9,7 @@ maintainer="B. Wilson <x@wilsonb.com>"
 license="OFL-1.1"
 homepage="https://github.com/be5invis/Sarasa-Gothic"
 distfiles="https://github.com/be5invis/Sarasa-Gothic/releases/download/v${version}/sarasa-gothic-ttc-${version}.7z"
-checksum=44b14ab8ec5da43c7804c7d5e077de887bc889c1a1eca62765d46e0a0df36b99
+checksum=893dcad279711cc541a143f4ba2356ee1b8e3ff4ed203a2da00601879adda913
 
 font_dirs="/usr/share/fonts/TTF"
 
