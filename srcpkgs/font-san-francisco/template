@@ -2,7 +2,7 @@
 pkgname=font-san-francisco
 version=1.0
 revision=1
-archs=noarch
+#archs=noarch
 depends="font-util xbps-triggers"
 short_desc="San Francisco fonts"
 maintainer="andry-dev <peketribal2@gmail.com>"
