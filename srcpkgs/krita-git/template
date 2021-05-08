@@ -1,0 +1,48 @@
+# Template file for 'krita'
+pkgname=krita-git
+_currdate=$(date "+%Y.%m.%d")
+version="5.0.${_currdate}"
+revision=1
+build_style=cmake
+wrksrc=krita
+configure_args="-Wno-dev -DBUILD_TESTING=OFF"
+hostmakedepends="extra-cmake-modules gettext pkg-config python3
+ qt5-qmake qt5-host-tools kcoreaddons python3-PyQt5
+ python3-PyQt5-devel git"
+makedepends="karchive-devel kconfig-devel kwidgetsaddons-devel kcompletion-devel
+ kcoreaddons-devel kguiaddons-devel ki18n-devel kitemmodels-devel kitemviews-devel
+ kwindowsystem-devel kio-devel kcrash-devel qt5-svg-devel qt5-multimedia-devel
+ boost-devel gsl-devel tiff-devel libjpeg-turbo-devel libraw-devel fftw-devel
+ opencolorio-devel eigen exiv2-devel libXi-devel libopenexr-devel libgomp-devel
+ poppler-qt5-devel giflib-devel python3-devel python3-PyQt5
+ python3-PyQt5-devel quazip-devel libheif-devel seexpr-krita-devel
+ libopenjpeg2-devel qt5-plugin-mysql qt5-sql qt5-plugin-odbc qt5-plugin-pgsql
+ qt5-plugin-sqlite qt5-plugin-tds"
+short_desc="Painting and image editing program"
+maintainer="John <me@johnnynator.dev>"
+license="GPL-3.0-only"
+homepage="https://krita.org/"
+#distfiles="${KDE_SITE}/krita/${version}/krita-${version}.tar.gz"
+#checksum=d4062323c2237ab9195c0b8bce1a69e30bd6fd10fadbad6395c27211d9878f67
+python_version=3
+replaces="calligra-krita>=0 krita<5.0"
+
+case "$XBPS_TARGET_MACHINE" in
+	i686*|x86_64*) makedepends+=" vc";;
+esac
+
+if [ "$XBPS_TARGET_NO_ATOMIC8" ]; then
+	makedepends+=" libatomic-devel"
+fi
+
+do_fetch() {
+    git clone --depth=1 https://invent.kde.org/graphics/krita.git
+}
+
+pre_configure() {
+	# CMake won't search in those directories because of CMAKE_FIND_ROOT_PATH
+	if [ "$CROSS_BUILD" ]; then
+		configure_args+=" -D_find_sip_py=$wrksrc/cmake/modules/FindSIP.py"
+		configure_args+=" -D_find_pyqt5_py=$wrksrc/cmake/modules/FindPyQt5.py"
+	fi
+}
