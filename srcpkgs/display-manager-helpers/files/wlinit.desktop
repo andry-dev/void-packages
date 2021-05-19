@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=wlinit
+Comment=Executes the .wlinit script in your home directory
+Exec=wlinitsession-helper
+TryExec=wlinitsession-helper
+Type=Application

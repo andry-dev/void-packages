@@ -1,0 +1,4 @@
+#!/bin/sh
+
+: "${XINITRC:=$HOME/.xinitrc}"
+exec dbus-run-session -- "${XINITRC}"

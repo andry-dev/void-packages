@@ -1,0 +1,20 @@
+# Template file for 'display-manager-helpers'
+pkgname=display-manager-helpers
+version=1.0
+revision=1
+build_style=meta
+short_desc="Helpers for display managers"
+maintainer="andry-dev <andry@whatever.com>"
+license="GPL-3.0-or-later"
+homepage="https://nonesuch.com"
+
+do_install() {
+	vbin ${FILESDIR}/wlinitsession-helper
+	vbin ${FILESDIR}/xinitrcsession-helper
+
+	vmkdir usr/share/xsessions
+	vmkdir usr/share/wayland-sessions
+
+	vcopy ${FILESDIR}/xinitrc.desktop usr/share/xsessions
+	vcopy ${FILESDIR}/wlinit.desktop usr/share/wayland-sessions
+}
