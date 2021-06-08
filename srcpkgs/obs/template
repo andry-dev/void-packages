@@ -1,33 +1,31 @@
 # Template file for 'obs'
 pkgname=obs
-version=26.1.2
-revision=2
+version=27.0.0
+revision=1
 archs="i686* x86_64* ppc64le*"
 wrksrc="obs-studio-${version}"
 build_style=cmake
-configure_args="-DOBS_VERSION_OVERRIDE=${version} -DBUILD_BROWSER=ON -DCEF_ROOT_DIR='../../cef_binary_4280_linux64'"
-hostmakedepends="pkg-config swig"
+configure_args="-DOBS_VERSION_OVERRIDE=${version} -DBUILD_BROWSER=ON -DCEF_ROOT_DIR='../../cef_binary_4280_linux64' -DBUILD_VST=OFF"
+hostmakedepends="pkg-config swig qt5-qmake qt5-host-tools"
 makedepends="LuaJIT-devel fdk-aac-devel ffmpeg-devel glu-devel jack-devel
  libXcomposite-devel libcurl-devel pulseaudio-devel python3-devel
  qt5-x11extras-devel qt5-svg-devel speexdsp-devel v4l-utils-devel vlc-devel
- x264-devel mbedtls-devel jansson-devel pipewire-devel nspr-devel nss-devel"
+ x264-devel mbedtls-devel jansson-devel wayland-devel pipewire-devel"
+depends="xset xdg-desktop-portal"
 short_desc="Open Broadcaster Software"
 maintainer="lemmi <lemmi@nerd2nerd.org>"
 license="GPL-2.0-or-later"
 homepage="https://obsproject.com"
-_browser_commit="53cfefe74a2347e9054212bb4c014766e53ee5f4"
-_vst_commit="cca219fa3613dbc65de676ab7ba29e76865fa6f8"
+_browser_commit="8884c91c3e0e38c5498dc460bd73370118d806b7"
 changelog="https://github.com/obsproject/obs-studio/releases"
 distfiles="https://github.com/obsproject/obs-studio/archive/${version}.tar.gz
  https://github.com/obsproject/obs-browser/archive/${_browser_commit}.tar.gz
  https://github.com/obsproject/obs-vst/archive/${_vst_commit}.tar.gz
  https://cdn-fastly.obsproject.com/downloads/cef_binary_4280_linux64.tar.bz2"
-checksum="bc8b4c61ba4aae87b70c589a6a5b8538e4f03121b31e9b98a2071d9f6006b897
+checksum="c7ea5369f4c94203a8a81b73c6372873f08ab9e5b20860691dad2c29f5dda85e
  54b8fdeb52e1bcf738b567bf29fb54b7c5274a75acc0b2879d3b7d9cb85530b6
  f7dd80df57065c458129b326856eca8209efa3047c8442acb7888bf9b66ad0de
  d91c78349ecbfbfdfc18d5f882dc28b939028f1a631191c603b5d0d938ada972"
-
-CFLAGS="-fcommon"
 
 post_extract() {
 	rmdir ./plugins/obs-browser
@@ -40,12 +38,12 @@ obs-devel_package() {
 	short_desc+=" - development files"
 	depends="${sourcepkg}>=${version}_${revision}"
 	pkg_install() {
+		vmove usr/lib/libobs-frontend-api.so
+		vmove usr/lib/libobs-opengl.so
+		vmove usr/lib/libobs.so
+		vmove usr/lib/libobsglad.so
 		vmove usr/include
 		vmove usr/lib/cmake
 		vmove usr/lib/pkgconfig
 	}
 }
-
-# REMARKS:
-# lemmi writes: needed to remove vmove usr/lib/*.so from the devel package,
-# otherwise obs would pull it in.
