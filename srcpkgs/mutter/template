@@ -1,4 +1,6 @@
 # Template file for 'mutter'
+reverts="40.2_1"
+
 pkgname=mutter
 version=40.1
 revision=1
