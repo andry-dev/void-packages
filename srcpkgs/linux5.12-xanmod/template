@@ -1,14 +1,15 @@
 # Template file for 'linux5.12-xanmod'
 pkgname=linux5.12-xanmod
-version=5.12.9
+version=5.12.11
 revision=1
-wrksrc="linux-${version}-xanmod1-cacule"
+_patchset=""
+wrksrc="linux-${version}-xanmod1${_patchset}"
 short_desc="Linux kernel and modules (${version%.*} series)"
 maintainer="Érico Nogueira <ericonr@disroot.org>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
-distfiles="https://github.com/xanmod/linux/archive/refs/tags/${version}-xanmod1-cacule.tar.gz"
-checksum=9ec673d6df218889117bfa0381cf36b4f2902a38e174a2b15f3f0295b0d7a153
+distfiles="https://github.com/xanmod/linux/archive/refs/tags/${version}-xanmod1${_patchset}.tar.gz"
+checksum=95671c021ab11669ef9ded4a45d56c1e8240ed782ae5c3ca5db0cce8abbb2c99
 skip_extraction="patch-${version}.xz"
 python_version=3
 patch_args="-Np1"
@@ -25,7 +26,7 @@ preserve=yes
 hostmakedepends="tar xz bc elfutils-devel flex gmp-devel kmod libmpc-devel
  openssl-devel perl uboot-mkimage cpio pahole python3"
 
-_kernver="${version}-xanmod1-cacule_${revision}"
+_kernver="${version}-xanmod1${_patchset}_${revision}"
 triggers="kernel-hooks"
 kernel_hooks_version="${_kernver}"
 
