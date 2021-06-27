@@ -1,15 +1,15 @@
 # Template file for 'linux5.12-xanmod'
 pkgname=linux5.12-xanmod
-version=5.12.11
+version=5.12.13
 revision=1
-_patchset=""
+_patchset="-cacule"
 wrksrc="linux-${version}-xanmod1${_patchset}"
 short_desc="Linux kernel and modules (${version%.*} series)"
 maintainer="Érico Nogueira <ericonr@disroot.org>"
 license="GPL-2.0-only"
 homepage="https://www.kernel.org"
 distfiles="https://github.com/xanmod/linux/archive/refs/tags/${version}-xanmod1${_patchset}.tar.gz"
-checksum=95671c021ab11669ef9ded4a45d56c1e8240ed782ae5c3ca5db0cce8abbb2c99
+checksum=56ac32d524f4adc988417e8afe630ba6d750834a0efe0dc4875f7eb5b11182da
 skip_extraction="patch-${version}.xz"
 python_version=3
 patch_args="-Np1"
