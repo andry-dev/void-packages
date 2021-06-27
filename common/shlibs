@@ -3508,7 +3508,7 @@ libcodecore.so.0 libio.elementary.code-3.0_1
 libio.elementary.music-core.so.0 libio.elementary.music-5.0_1
 libpantheon-files-core.so.4 libio.elementary.files-4.1.4_1
 libpantheon-files-widgets.so.4 libio.elementary.files-4.1.4_1
-libwlroots.so.8 wlroots-0.13.0_1
+libwlroots.so.9 wlroots-0.14.0_1
 libbaseencode.so.1 libbaseencode-1.0.9_1
 libcotp.so.12 libcotp-1.2.1_1
 libunarr.so.1 libunarr-1.0.1_1
@@ -3662,6 +3662,7 @@ libflite.so.1 flite-2.1_1
 libflite_cmu_us_kal.so.1 flite-2.1_1
 libflite_usenglish.so.1 flite-2.1_1
 libflite_cmulex.so.1 flite-2.1_1
+libflite_cmu_us_kal16.so.1 flite-2.2_1
 libgtk-4.so.1 gtk4-4.0.0_1
 libmodule.so.5 libmodule-5.0.0_1
 libgnustep-gui.so.0.29 gnustep-gui-0.29.0_1
